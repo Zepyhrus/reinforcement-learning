@@ -38,6 +38,7 @@ It should be noted that, some of the RL probelm does not belong to any round gam
 
 
 # Q Learning
+* Persudo code of q-learning
 - Initialize *Q(s, a)* arbitrarily  
 - Repeat (for each episode):  
     - Initialize *s*  
@@ -47,6 +48,34 @@ It should be noted that, some of the RL probelm does not belong to any round gam
         - *Q(s, a) <- Q(s, a) + \alpha\[r+\gamma max_a' Q(s', a') - Q(s, a)\]*  
         - *s <- s';*  
     - until *s* in terminal;   
+
+
+* Using learning rate * (real q-value - predicted q-value) to update history actions;  
+* The update policy has the common with NN BP;
+
+
+# Sarsa
+* Persudo code of Sarsa,   
+- Initialize *Q(s, a)* arbitrarily  
+- Repeat (for each episode):  
+    - Initialize *s*  
+    - Repeat (for each step of episode):  
+        - Choose *a* form *s* using policy derived from Q (e.g., \epsilon-greedy)  
+        - Take action *a*, obeserve *r, s'*  
+        - Choose *a\`* form *s\`* using policy derived from Q (e.g., \epsilon-greedy)  
+        - *Q(s, a) <- Q(s, a) + \alpha [r + \gamma Q(s\`, a\`) - Q(s, a)]*
+    - until *s* in terminal;   
+
+
+* Sarsa takes the real action, which makes Sarsa tends to choose a more conservetive way of actions;
+* While Q-learning **ALWAYS** choose the shortest way;
+## Sarsa (lambda)
+
+# DQN
+
+
+
+
 
 
 # Acoknowledgement
