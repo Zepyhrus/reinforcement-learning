@@ -38,6 +38,7 @@ It should be noted that, some of the RL probelm does not belong to any round gam
 
 
 # Q Learning
+* The `Q` stands for Quality, which refers to the value every actions taken to measure their significance of reaching the target;
 * Persudo code of q-learning
 - Initialize *Q(s, a)* arbitrarily  
 - Repeat (for each episode):  
@@ -70,8 +71,22 @@ It should be noted that, some of the RL probelm does not belong to any round gam
 * Sarsa takes the real action, which makes Sarsa tends to choose a more conservetive way of actions;
 * While Q-learning **ALWAYS** choose the shortest way;
 ## Sarsa (lambda)
+* Using flags, to mark states has been choosed;
+* Using trace decay coefficient: lambda to model the importance of the past actions;
+    * The closer the actions to target, the more important they are;
 
-# DQN
+# DQN: Deep Q Network
+* There are 2 types of Q-network:
+1. Take current State and Action as input, generates the Q-value of the action;
+2. Take current state as input, generates all the Actions and their Q-values respectively;
+
+![Algorithm of DQN](4.DQN/4-1-1.jpg)
+
+* Experience replay:
+
+
+
+* Fixed Q-targets:
 
 
 
