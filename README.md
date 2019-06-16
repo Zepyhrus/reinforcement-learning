@@ -1,13 +1,13 @@
 # Reinforcement Learning (RL)
-A study environment of reinforcement learning, including any implementation of RL algorithm and papers
+A study env of reinforcement learning, including any implementation of RL algorithm and papers
 
 
 # Different types of RL algorithms
 ## Model
-1. Model-free RL: Do not try to understand the environment;
+1. Model-free RL: Do not try to understand the env;
 2. Model-based RL:
-    * Try to understand (model) the environment;
-    * Create a envi (environment) simulator, to simulate all possible actions;
+    * Try to understand (model) the env;
+    * Create a env (environment) simulator, to simulate all possible actions;
 
 ## Actions
 1. Policy-based: 
@@ -38,7 +38,7 @@ It should be noted that, some of the RL probelm does not belong to any round gam
 
 
 # Q Learning
-* The `Q` stands for Quality, which refers to the value every actions taken to measure their significance of reaching the target;
+* The *Q* stands for Quality, which refers to the value every actions taken to measure their significance of reaching the target;
 * Persudo code of q-learning
 - Initialize *Q(s, a)* arbitrarily  
 - Repeat (for each episode):  
@@ -63,8 +63,8 @@ It should be noted that, some of the RL probelm does not belong to any round gam
     - Repeat (for each step of episode):  
         - Choose *a* form *s* using policy derived from Q (e.g., \epsilon-greedy)  
         - Take action *a*, obeserve *r, s'*  
-        - Choose *a\`* form *s\`* using policy derived from Q (e.g., \epsilon-greedy)  
-        - *Q(s, a) <- Q(s, a) + \alpha [r + \gamma Q(s\`, a\`) - Q(s, a)]*
+        - Choose *a'* form *s'* using policy derived from Q (e.g., \epsilon-greedy)  
+        - *Q(s, a) <- Q(s, a) + \alpha [r + \gamma Q(s', a') - Q(s, a)]*
     - until *s* in terminal;   
 
 
