@@ -89,9 +89,11 @@ It should be noted that, some of the RL probelm does not belong to any round gam
 * Fixed Q-targets:
 
 
+Graph of DQN:
+![Graph of DQN](4.DQN/4-2-1.png)
 
-
-
+A modified grapu of DQN:
+![A modified grapu of DQN](4.DQN/4-3-2.png)
 
 # Acoknowledgement
 

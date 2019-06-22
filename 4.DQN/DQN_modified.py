@@ -40,7 +40,7 @@ class DeepQNetwork:
     self.memory_size = memory_size
     self.batch_size = batch_size
     self.epsilon_increment = e_greedy_increment
-    self.epsilon = 0 if e_greedy_increment is not None else self.epsilon_max
+    self.epsilon = 0 if e_greedy_increment is not None else self.epsilon_max  # 是否开启探索模式, 并逐步减少探索次数
 
     # total learning step
     self.learn_step_counter = 0
@@ -95,7 +95,7 @@ class DeepQNetwork:
     with tf.variable_scope('q_eval'):
       a_indices = tf.stack([tf.range(tf.shape(self.a)[0], dtype=tf.int32), self.a], axis=1)
       self.q_eval_wrt_a = tf.gather_nd(params=self.q_eval, indices=a_indices)    # shape=(None, )
-    with tf.variable_scope('loss'):
+    with tf.variable_scope('loss'):_build_net
       self.loss = tf.reduce_mean(tf.squared_difference(self.q_target, self.q_eval_wrt_a, name='TD_error'))
     with tf.variable_scope('train'):
       self._train_op = tf.train.RMSPropOptimizer(self.lr).minimize(self.loss)
