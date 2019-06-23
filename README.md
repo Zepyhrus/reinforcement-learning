@@ -37,7 +37,8 @@ It should be noted that, some of the RL probelm does not belong to any round gam
     * Deep-Q-Network;
 
 
-# Q Learning
+# Reinforcement Learning Algorithms
+## Q Learning
 * The *Q* stands for Quality, which refers to the value every actions taken to measure their significance of reaching the target;
 * Persudo code of q-learning
 - Initialize *Q(s, a)* arbitrarily  
@@ -55,7 +56,7 @@ It should be noted that, some of the RL probelm does not belong to any round gam
 * The update policy has the common with NN BP;
 
 
-# Sarsa
+## Sarsa
 * Persudo code of Sarsa,   
 - Initialize *Q(s, a)* arbitrarily  
 - Repeat (for each episode):  
@@ -71,7 +72,7 @@ It should be noted that, some of the RL probelm does not belong to any round gam
 * Sarsa takes the real action, which makes Sarsa tends to choose a more conservetive way of actions;
 * While Q-learning **ALWAYS** choose the shortest way;
 
-# Sarsa (lambda)
+## Sarsa (lambda)
 * Using flags, to mark states has been choosed;
 * Using trace decay coefficient: lambda to model the importance of the past actions;
     * The closer the actions to target, the more important they are;
@@ -81,18 +82,21 @@ It should be noted that, some of the RL probelm does not belong to any round gam
 * The *E(s, a)* here stands for the eligibility trace;
 
 
-# DQN: Deep Q Network
+## DQN: Deep Q Network
 * There are 2 types of Q-network:
 1. Take current State and Action as input, generates the Q-value of the action;
+    * s2 + a1 -> Q(a1);
 2. Take current state as input, generates all the Actions and their Q-values respectively;
+    * s2 -> Q(a1), Q(a2)
 
 ![Algorithm of DQN](4.DQN/4-1-1.jpg)
 
 * Experience replay:
-
-
+    * Sample the past experience randomly;
 
 * Fixed Q-targets:
+    * Q target network: taking input from the past, randomly;
+    * Q predict network: taking input from the latest action;
 
 
 Graph of DQN:
@@ -101,6 +105,20 @@ Graph of DQN:
 A modified grapu of DQN:
 ![A modified grapu of DQN](4.DQN/4-3-2.png)
 
+## Double DQN
+**Q**: What is Double DQN?
+**Q**: What is Prioritised Replay?
+**Q**: What is Dueling DQN?
+
+
+
+## Policy Gradients
+* The transition stores only the memory of this episode, NOT all the memory of actions like DQN;
+
+
+
+
+![Graph of Policy Gradient](5.policy_gradients/5-1-1.png)
 # Acoknowledgement
 
 
