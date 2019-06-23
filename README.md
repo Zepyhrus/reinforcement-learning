@@ -70,10 +70,16 @@ It should be noted that, some of the RL probelm does not belong to any round gam
 
 * Sarsa takes the real action, which makes Sarsa tends to choose a more conservetive way of actions;
 * While Q-learning **ALWAYS** choose the shortest way;
-## Sarsa (lambda)
+
+# Sarsa (lambda)
 * Using flags, to mark states has been choosed;
 * Using trace decay coefficient: lambda to model the importance of the past actions;
     * The closer the actions to target, the more important they are;
+    * using *lambda_*
+
+![Algorithm of Sarsa-lambda](3.Sarsa-lambda/3-1-1.png)
+* The *E(s, a)* here stands for the eligibility trace;
+
 
 # DQN: Deep Q Network
 * There are 2 types of Q-network:
