@@ -120,7 +120,7 @@ A modified grapu of DQN:
 
 ![Graph of Policy Gradient](5.policy_gradients/5-1-1.png)
 # Acoknowledgement
-
+* Most of the work is motivated by Morvan
 
 
 
