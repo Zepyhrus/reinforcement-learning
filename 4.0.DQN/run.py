@@ -12,7 +12,7 @@ from DQN_brain import DeepQNetwork
 
 def run_maze():
   step = 0
-  for episode in range(300):
+  for episode in range(1000):
     # initial observation
     observation = env.reset()
 
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     e_greedy=0.9,
     replace_target_iter=300,
     memory_size=2000,
-    batch_size=32,
+    batch_size=64,
     e_greedy_increment=None,
     output_graph=True)
   
