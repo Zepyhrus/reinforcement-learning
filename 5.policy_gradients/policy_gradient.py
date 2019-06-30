@@ -1,17 +1,13 @@
-#%%
-import random
-
-import tensorflow as tf
-
 import numpy as np
+import tensorflow as tf
 import numpy.random as npr
 
 #%%
 class PolicyGradient(object):
   def __init__(
     self,
-    n_features,
     n_actions,
+    n_features,
     learning_rate,
     reward_decay,  # reward decay
     # e_greedy,  # epsilon greedy ratio
@@ -21,8 +17,8 @@ class PolicyGradient(object):
     # e_greedy_increment,  # the decay of the epsilon greedy ratio
     output_graph,  # save the tensorflow graph for visualization
   ):
-    self.n_features = n_features
     self.n_actions = n_actions
+    self.n_features = n_features
     self.lr = learning_rate
     self.gamma = reward_decay
     # self.epsilon_max = e_greedy
@@ -32,15 +28,13 @@ class PolicyGradient(object):
     # self.epsilon_increment = e_greedy_increment
     # self.epsilon = 0 if e_greedy_increment is not None else self.epsilon_max
 
-    self.learn_step_counter = 0
-
     # initialize empty memory 
     self.ep_obs = []
     self.ep_actions = []
     self.ep_rewards = []
 
     # build the net
-    self._built_net()
+    self._build_net()
 
     # needs no double neural network in policy gradient
     # target_pars = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='target_net')
@@ -55,48 +49,38 @@ class PolicyGradient(object):
       tf.summary.FileWriter('logs/', self.sess.graph)
 
     self.sess.run(tf.global_variables_initializer())
-    # self.cost_his = []
   
-  def _built_net(self):
+  def _build_net(self):
     self.tf_obs = tf.placeholder(tf.float32, [None, self.n_features], name='observations')  # input state
-    self.tf_acts = tf.placeholder(tf.int32, [None, ], name='actions')  # actions
-    self.tf_vt = tf.placeholder(tf.float32, [None, ], name='action_values')  # action values
+    self.tf_acts = tf.placeholder(tf.int32, [None, ], name='actions_num')  # actions
+    self.tf_vt = tf.placeholder(tf.float32, [None, ], name='action_value')  # action values
 
-    hidden_layer = tf.layers.dense(
+    layer = tf.layers.dense(
       inputs=self.tf_obs,
-      units=20,
-      activation=tf.nn.relu,
-      kernel_initializer=tf.truncated_normal_initializer(stddev=0.3),
-      bias_initializer=tf.constant_initializer(0.1))
-    
-    all_act = tf.layers.dense(
-      inputs=hidden_layer,
-      units=self.n_actions,
-      activation=tf.nn.relu,
+      units=10,
+      activation=tf.nn.tanh,
       kernel_initializer=tf.truncated_normal_initializer(stddev=0.3),
       bias_initializer=tf.constant_initializer(0.1),
-      name='all_act'
+      name='fc1')
+    
+    all_act = tf.layers.dense(
+      inputs=layer,
+      units=self.n_actions,
+      activation=None,
+      kernel_initializer=tf.truncated_normal_initializer(stddev=0.3),
+      bias_initializer=tf.constant_initializer(0.1),
+      name='fc2'
     )
 
-    all_act_prob = tf.nn.softmax(all_act, name='all_act_prob')
+    self.all_act_prob = tf.nn.softmax(all_act, name='act_prob')  # use softmax to convert to probability
 
     with tf.variable_scope('loss'):
-      neg_log_prob = tf.reduce_sum(-tf.log(all_act_prob) *\
-        tf.one_hot(self.tf_acts, self.n_actions), axis=1)
+      neg_log_prob = tf.reduce_sum(-tf.log(self.all_act_prob)*tf.one_hot(self.tf_acts, self.n_actions), axis=1)
       
-      self.loss = tf.reduce_mean(neg_log_prob * self.tf_vt)
+      loss = tf.reduce_mean(neg_log_prob * self.tf_vt)
     
     with tf.variable_scope('train'):
-      self._train_op = tf.train.RMSPropOptimizer(self.lr).minimize(self.loss)
-
-  def store_transition(self, s, a, r):
-    """
-      store the transition into memory
-    """
-    self.ep_obs.append(s)
-    self.ep_actions.append(a)
-    self.ep_rewards.append(r)
-
+      self.train_op = tf.train.RMSPropOptimizer(self.lr).minimize(loss)
   def choose_action(self, observation):
     """
       return action from the observation
@@ -110,6 +94,15 @@ class PolicyGradient(object):
     action = npr.choice(range(prob_weights.shape[1]), p=prob_weights.ravel())
 
     return action
+  def store_transition(self, s, a, r):
+    """
+      store the transition into memory
+    """
+    self.ep_obs.append(s)
+    self.ep_actions.append(a)
+    self.ep_rewards.append(r)
+
+  
 
   def learn(self):
     """
@@ -131,11 +124,11 @@ class PolicyGradient(object):
     discounted_ep_rs_norm = self._discount_and_norm_rewards()
 
     # excute the train operation
-    _, cost = self.sess.run(
-      [self._train_op, self.loss],
+    self.sess.run(
+      self.train_op,
       feed_dict={
-        self.tf_obs: self.ep_obs[:, :self.n_features],
-        self.tf_acts: self.ep_actions[:, self.n_features],
+        self.tf_obs: np.vstack(self.ep_obs),
+        self.tf_acts: np.array(self.ep_actions),
         self.tf_vt: discounted_ep_rs_norm
         })
     
@@ -153,6 +146,7 @@ class PolicyGradient(object):
     self.learn_step_counter += 1
 
   def _discount_and_norm_rewards(self):
+    # discount episode rewards
     discounted_ep_rs = np.zeros_like(self.ep_rewards)
     running_add = 0
 

@@ -10,7 +10,7 @@ Tensorflow: 1.0
 gym: 0.8.0
 """
 import sys
-sys.path.append(['5.policy_gradients'])
+sys.path.extend(['5.policy_gradients'])
 
 
 
@@ -36,7 +36,7 @@ RL = PolicyGradient(
     n_features=env.observation_space.shape[0],
     learning_rate=0.02,
     reward_decay=0.99,
-    # output_graph=True,
+    output_graph=True,
 )
 
 for i_episode in range(3000):
@@ -53,7 +53,7 @@ for i_episode in range(3000):
         RL.store_transition(observation, action, reward)
 
         if done:
-            ep_rs_sum = sum(RL.ep_rs)
+            ep_rs_sum = sum(RL.ep_rewards)
 
             if 'running_reward' not in globals():
                 running_reward = ep_rs_sum
@@ -64,11 +64,11 @@ for i_episode in range(3000):
 
             vt = RL.learn()
 
-            if i_episode == 0:
-                plt.plot(vt)    # plot the episode vt
-                plt.xlabel('episode steps')
-                plt.ylabel('normalized state-action value')
-                plt.show()
+            # if i_episode == 0:
+            #     plt.plot(vt)    # plot the episode vt
+            #     plt.xlabel('episode steps')
+            #     plt.ylabel('normalized state-action value')
+            #     plt.show()
             break
 
         observation = observation_
