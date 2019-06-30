@@ -113,9 +113,10 @@ A modified grapu of DQN:
 1. A little like the attention mechanism, pay more attention to the fewer, positive examples;
 2. Increase the learning speed;
 3. *TD-error*: Q_target - Q_eval, the larger *TD-error* is, the more potential loss the exampleholds, which indicates a higher priority to be learned;
+4. SumTree: The sample process takes a lot of the computing sources, a faster sample structure;
 
 **Q**: What is Dueling DQN?
-
+1. 
 
 
 ## Policy Gradients
