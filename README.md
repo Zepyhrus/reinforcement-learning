@@ -117,6 +117,15 @@ A modified grapu of DQN:
 
 
 
+# Notes
+Take notes from the reproduction
+1. tf.GraphKeys.GLOBAL_VARIBALES:
+  * Standard names to use for graph collections;
+  * all TRAIN_VARIABLES will be in MODEL_VARIABLES, and all MODEL_VARIABLES will be in GLOBAL_VALIABELS;
+2. tf.stop_gardient:
+  * When executed in a graph, the op outputs its input tensor as-is;
+3. tf.gather_nd:
+  * 
 
 ![Graph of Policy Gradient](5.policy_gradients/5-1-1.png)
 # Acoknowledgement
