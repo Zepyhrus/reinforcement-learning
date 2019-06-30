@@ -116,7 +116,9 @@ A modified grapu of DQN:
 4. SumTree: The sample process takes a lot of the computing sources, a faster sample structure;
 
 **Q**: What is Dueling DQN?
-1. 
+1. The original DQN outputs the Q-value of every action;
+2. Dueling DQN outputs the Q-value by state value and state advantage;
+3. Picking actions more efficiently;
 
 
 ## Policy Gradients
