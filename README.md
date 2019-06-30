@@ -105,9 +105,15 @@ Graph of DQN:
 A modified grapu of DQN:
 ![A modified grapu of DQN](4.DQN/4-3-2.png)
 
-## Double DQN
+## Different types of DQN
 **Q**: What is Double DQN?
+1. Solving over-estimation problem;
+
 **Q**: What is Prioritised Replay?
+1. A little like the attention mechanism, pay more attention to the fewer, positive examples;
+2. Increase the learning speed;
+3. *TD-error*: Q_target - Q_eval, the larger *TD-error* is, the more potential loss the exampleholds, which indicates a higher priority to be learned;
+
 **Q**: What is Dueling DQN?
 
 
