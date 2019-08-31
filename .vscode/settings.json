@@ -1,6 +1,7 @@
 {
-    "python.pythonPath": "/home/sherk/anaconda3/envs/tensorflow-gpu/bin/python",
+    "python.pythonPath": "D:\\ProgramData\\anaconda3\\envs\\tf-cpu\\python.exe",
     "python.linting.pylintEnabled": false,
     "python.linting.pep8Enabled": false,
-    "python.linting.enabled": false
+    "python.linting.enabled": false,
+    "editor.tabSize": 2
 }
